@@ -1,4 +1,4 @@
-# Processo Seletivo da Superintendência de Tecnologia da Informação - STI/UFF
+# READ ME
 
 ## Como executar?
 
