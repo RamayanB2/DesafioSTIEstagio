@@ -51,11 +51,11 @@ public class Model {
         }
         sugestoes[1]= sugestoes[1].toLowerCase()+"@id.uff.br";
         
-        sugestoes[2]= subnomes[0]+subnomes[subnomes.length-1]+"@id.uff.br";
+        sugestoes[2]= (subnomes[0]+subnomes[subnomes.length-1]).toLowerCase()+"@id.uff.br";
         
-        sugestoes[3]= subnomes[0].charAt(0)+subnomes[subnomes.length-1]+"@id.uff.br";
+        sugestoes[3]= (subnomes[0].charAt(0)+subnomes[subnomes.length-1]).toLowerCase()+"@id.uff.br";
         
-        sugestoes[4]= subnomes[0].charAt(0)+subnomes[1]+subnomes[subnomes.length-1]+"@id.uff.br";
+        sugestoes[4]= (subnomes[0].charAt(0)+subnomes[1]+subnomes[subnomes.length-1]).toLowerCase()+"@id.uff.br";
         
         email_sugestions = sugestoes;
     }
