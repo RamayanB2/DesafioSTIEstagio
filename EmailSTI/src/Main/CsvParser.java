@@ -2,8 +2,11 @@
 package Main;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.logging.Level;
@@ -138,35 +141,46 @@ public class CsvParser {
     }
 
     /**
-     * @param info_aluno*
+     * Creates a new File equal to the first one, but replacing the students info
+     * @param info_aluno* New students info to be added in new file
      **/
     public void editCsv(String[] info_aluno){
-        RandomAccessFile raf= null;
+        BufferedReader br = null;
+        BufferedWriter bw = null;
+        
+        File file = new File(filePath.replaceAll(".csv", "")+"_temp"+".csv");
+        FileWriter fw;
+        
         String line;
         String cvsSplitBy = ",";
         int line_count = 0;
+        
         try {
-            raf = new RandomAccessFile(filePath,"rw");
-                while (raf.readLine() != null) {                        
+            fw  = new FileWriter(file);
+            br = new BufferedReader(new FileReader(filePath));
+            bw = new BufferedWriter(fw);
+                br.readLine(); 
+                while ((line =br.readLine()) != null) {                        
                         line_count++;
                         if(line_count==line_number){
                             line = (info_aluno[0]+","+info_aluno[1]+","+info_aluno[2]+","+info_aluno[3]
-                            +","+info_aluno[4]+","+info_aluno[5]+"\r");
+                            +","+info_aluno[4]+","+info_aluno[5]);
                             System.out.println(line);
-                            //line = line+ "\n";
-                            //107428
-                            raf.write(line.getBytes());
-                            //raf.writeUTF(System.getProperty("line.separator"));
-                        }
+                            bw.write(line);
+                        }else bw.write(line);
+                        bw.write("\n");
                 }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(CsvParser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException e) {
-                e.printStackTrace();
+            e.printStackTrace();
         } finally {
-                if (raf != null) {
+                if (br != null && bw!= null) {
                         try {
-                                raf.close();
+                                br.close();
+                                bw.close();                                
+                                new File(filePath).delete();
+                                file.renameTo(new File(filePath));
                         } catch (IOException e) {
                                 e.printStackTrace();
                         }
@@ -174,4 +188,5 @@ public class CsvParser {
         }
  }
 
+///OBS: existe uma biblioteca CSVReader para facilitar escrita e leitura em csv , mas n usei para n "roubar" no desafio
 }
