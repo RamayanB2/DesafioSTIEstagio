@@ -8,7 +8,7 @@ package Mvc;
 import Main.CsvParser;
 
 /**
- *
+ * Classe que guarda e manipula os dados necessários 
  * @author Ramayan
  */
 public class Model {
@@ -22,11 +22,18 @@ public class Model {
         this.parser = new CsvParser(csvfilePath);        
     }
     
+    /**Gets student's data based on his registered i
+     * @param matricula* student's registered id
+     * @return id that id is registered in the system
+     */
     public boolean isMatRegistered(String matricula){
         if(info_aluno==null)return false;
         else return true;
     }
     
+    /**Gets student's data based on his registered id, registering it in Model
+     * @param matricula* student's registered id
+     ***/
     public void getInfo(String matricula){
         this.info_aluno = parser.getInfo(matricula);
     }
@@ -37,8 +44,10 @@ public class Model {
     public String getEmail(){return info_aluno[3];}
     public String getUffMail(){return info_aluno[4];}
     public String getStatus(){return info_aluno[5];}    
-    public void setUffMail(){this.info_aluno[4]=choosen;}
+    public void setUffMail(){this.info_aluno[4]=choosen;}    
+    public String[] getEmailSugestions(){return email_sugestions;}
     
+    /***Makes all String operations over student's name to create email sugestions***/
     public void createEmailSugestions(){
         String subnomes[] = getNome().split(" ");
         String[] sugestoes = new String[5];
@@ -60,10 +69,16 @@ public class Model {
         email_sugestions = sugestoes;
     }
     
+    /** Sets which option was choosen by the user to be his new uffmail
+     * @param s* the new choosen uffmail
+     **/
     public void setChoosenEmail(String s){
         this.choosen = s;
     }
     
+    /** Passes to Parser to search in the csv file if the email is avaliable
+     * @return true if email is avaliable and updates it*
+     **/
     public boolean isEmailAvaliable(){
         if (parser.isEmailAviable(choosen)){
             setUffMail();
@@ -73,12 +88,11 @@ public class Model {
         else return false;
     }    
     
+    /*** Passes to Parser to update the uffmail to the new one***/
     public void updateUffMail(){
+        //parser.editCsv(info_aluno);
         //Aqui se meche no parse dnv para colocar no csv o email criado
     }
         
-    public String[] getEmailSugestions(){
-        return email_sugestions;
-    }
     
 }

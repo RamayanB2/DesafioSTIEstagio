@@ -10,7 +10,7 @@ import Mvc.Model;
 import Mvc.Panels.VMain;
 
 /**
- *
+ * Classe Principal
  * @author Ramayan
  */
 public class Main {

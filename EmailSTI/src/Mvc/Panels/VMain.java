@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 /**
- *
+ * Classe da Tela principal
  * @author Ramayan
  */
 public class VMain extends View{
 
-    private Model model;
+    private final Model model;
     
     public VMain(Model m) {
         this.model = m;

@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 /**
- * Classe abstrata
+ * Classe abstrata das Telas
  * @author Ramayan
  */
 public abstract class View extends JFrame{    

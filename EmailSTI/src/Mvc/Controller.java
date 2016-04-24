@@ -34,13 +34,16 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            model.getInfo(view.getMat());
-            if(model.isMatRegistered(view.getMat())){
+            if(!view.getMat().equalsIgnoreCase("")){
+                model.getInfo(view.getMat());
+                
+                if(model.isMatRegistered(view.getMat())){
                 model.createEmailSugestions();
                 view.dispose();
                 view = new VEmails(model);
                 view.addConfListener(new ConfEmailListener());
-            }else JOptionPane.showMessageDialog(view,"A matrícula inserida não consta no nosso sistema.\n Por favor insira uma matricula correta.");
+                }else JOptionPane.showMessageDialog(view,"A matrícula inserida não consta no nosso sistema.\n Por favor insira uma matricula correta.");
+          }else JOptionPane.showMessageDialog(view,"Nenhuma matricula foi inserida. \nPor favor insira a matricula.");
         }
     }
     
@@ -48,12 +51,16 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
+            if(view.getChoosenIdUff()==null){
+                JOptionPane.showMessageDialog(view,"Por favor, selecione alguma opção");
+            }else {
             model.setChoosenEmail(view.getChoosenIdUff());
             if(model.isEmailAvaliable()){
                 view.dispose();
                 view = new VFinal(model);
                 view.addConfListener(new ConfDoneListener());
             }else JOptionPane.showMessageDialog(view,"Escolha outra opção por favor,\n esse uffmail já existe");
+        }
         }
     }
     
