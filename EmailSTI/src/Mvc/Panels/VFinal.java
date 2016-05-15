@@ -118,8 +118,8 @@ public class VFinal extends View {
     /*** Texto a ser mostrado na tela final de criacao de uffmail***/
     public void setSMSText(){
         jTextArea1.setText("Sua escolha foi efetuada com sucesso e seu email\n "+
-                model.getUffMail()+" será criado dentre os\n próximos minutos. "+
-                "Um SMS foi enviado para\n "+ model.getTel()+
+                model.getAluno().getUffMail()+" será criado dentre os\n próximos minutos. "+
+                "Um SMS foi enviado para\n "+ model.getAluno().getTel()+
                 " com a sua senha de\n acesso.");
     }
 }

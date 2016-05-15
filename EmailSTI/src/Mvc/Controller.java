@@ -54,7 +54,7 @@ public class Controller {
             if(view.getChoosenIdUff()==null){
                 JOptionPane.showMessageDialog(view,"Por favor, selecione alguma opção");
             }else {
-            model.setChoosenEmail(view.getChoosenIdUff());
+            model.getAluno().setChoosenEmail(view.getChoosenIdUff());
             if(model.isEmailAvaliable()){
                 view.dispose();
                 view = new VFinal(model);

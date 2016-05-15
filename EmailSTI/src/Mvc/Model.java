@@ -5,7 +5,8 @@
  */
 package Mvc;
 
-import Main.CsvParser;
+import Classes.Aluno;
+import Classes.CsvEditor;
 
 /**
  * Classe que guarda e manipula os dados necessários 
@@ -13,13 +14,12 @@ import Main.CsvParser;
  */
 public class Model {
     
-    private final CsvParser parser;
-    private String[] email_sugestions;
-    private String[] info_aluno;
-    private String choosen;
+    private final CsvEditor parser;
+    private boolean isMatReg;
+    private Aluno aluno;     
     
     public Model(String csvfilePath){
-        this.parser = new CsvParser(csvfilePath);        
+        this.parser = new CsvEditor(csvfilePath);        
     }
     
     /**Gets student's data based on his registered i
@@ -27,29 +27,28 @@ public class Model {
      * @return id that id is registered in the system
      */
     public boolean isMatRegistered(String matricula){
-        if(info_aluno==null)return false;
-        else return true;
+        return isMatReg;
     }
     
     /**Gets student's data based on his registered id, registering it in Model
      * @param matricula* student's registered id
      ***/
     public void getInfo(String matricula){
-        this.info_aluno = parser.getInfo(matricula);
+        isMatReg = false;
+        String[] info = parser.getInfo(matricula);
+        if(info!=null){
+            this.aluno = new Aluno(info);
+            isMatReg = true;
+        }
     }
     
-    public String getNome(){return info_aluno[0];}
-    public String getMatricula(){return info_aluno[1];}
-    public String getTel(){return info_aluno[2];}
-    public String getEmail(){return info_aluno[3];}
-    public String getUffMail(){return info_aluno[4];}
-    public String getStatus(){return info_aluno[5];}    
-    public void setUffMail(){this.info_aluno[4]=choosen;}    
-    public String[] getEmailSugestions(){return email_sugestions;}
+    public Aluno getAluno(){
+        return this.aluno;
+    }
     
     /***Makes all String operations over student's name to create email sugestions***/
     public void createEmailSugestions(){
-        String subnomes[] = getNome().split(" ");
+        String subnomes[] = aluno.getNome().split(" ");
         String[] sugestoes = new String[5];
         
         sugestoes[0] = (subnomes[0]+"_"+subnomes[subnomes.length-1]).toLowerCase()+"@id.uff.br";
@@ -66,22 +65,17 @@ public class Model {
         
         sugestoes[4]= (subnomes[0].charAt(0)+subnomes[1]+subnomes[subnomes.length-1]).toLowerCase()+"@id.uff.br";
         
-        email_sugestions = sugestoes;
+        aluno.setEmailSug(sugestoes);
     }
     
-    /** Sets which option was choosen by the user to be his new uffmail
-     * @param s* the new choosen uffmail
-     **/
-    public void setChoosenEmail(String s){
-        this.choosen = s;
-    }
+
     
     /** Passes to Parser to search in the csv file if the email is avaliable
      * @return true if email is avaliable and updates it*
      **/
     public boolean isEmailAvaliable(){
-        if (parser.isEmailAviable(choosen)){
-            setUffMail();
+        if (parser.isEmailAviable(aluno.getChoosenUffMail())){
+            aluno.setUffMail(aluno.getChoosenUffMail());
             updateUffMail();
             return true;
         }
@@ -90,7 +84,7 @@ public class Model {
     
     /*** Passes to Parser to update the uffmail to the new one***/
     public void updateUffMail(){
-        //parser.editCsv(info_aluno);
+        parser.editCsv(aluno.getInfo());
         //Aqui se meche no parse dnv para colocar no csv o email criado
     }
         

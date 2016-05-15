@@ -21,7 +21,7 @@ public class VEmails extends View {
     public VEmails(Model m) {
         this.model = m;
         initComponents();
-        setRadioBText(model.getEmailSugestions());
+        setRadioBText(model.getAluno().getEmailSugestions());
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(false);

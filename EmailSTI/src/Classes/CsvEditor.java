@@ -1,5 +1,5 @@
 
-package Main;
+package Classes;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,12 +16,12 @@ import java.util.logging.Logger;
  * Module that controls the operations on the Csv file
  * @author Ramayan
  */
-public class CsvParser {
+public class CsvEditor {
     
     private final String filePath;
     private int line_number;
     
-    public CsvParser(String filePath){
+    public CsvEditor(String filePath){
         this.filePath = filePath;
     }
     
@@ -171,7 +171,7 @@ public class CsvParser {
                         bw.write("\n");
                 }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(CsvParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CsvEditor.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
